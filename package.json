@@ -1,0 +1,28 @@
+{
+  "name": "communitysift",
+  "version": "1.0.0",
+  "description": "An API Wrapper for CommunitySift",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mturner/communitysift-node.git"
+  },
+  "keywords": [
+    "communitysift",
+    "chat",
+    "moderation",
+    "community"
+  ],
+  "author": "Matt Turner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mturner/communitysift-node/issues"
+  },
+  "homepage": "https://github.com/mturner/communitysift-node#readme",
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
+}
