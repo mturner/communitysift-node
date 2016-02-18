@@ -23,6 +23,13 @@
   },
   "homepage": "https://github.com/mturner/communitysift-node#readme",
   "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "^0.4.5",
+    "grunt-mocha-test": "^0.12.7",
     "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "request": "^2.69.0",
+    "underscore": "^1.8.3"
   }
 }
