@@ -7,9 +7,24 @@ module.exports = function(options) {
 		protocol: "https://"
 	});
 
-	var proxied = request.defaults({'proxy':'http://127.0.0.1:8888'})
+	//var proxied = request.defaults({'proxy':'http://127.0.0.1:8888'})
 
 	return {
+
+		/* Roles */
+		SUPERUSER: 0,
+		TRUSTED: 3,
+		DEFAULT: 4,
+		NOT_TRUSTED: 6,
+		MUTE: 7,
+
+		/* Risk */
+		SUPERSAFE: 0,
+		WHITELISTED: 1,
+		GREY: 2,
+		QUESTIONABLE: 3,
+		UNKNOWN: 4,
+
 
 		filterMessage: function ( options, callback ) {
 
@@ -38,7 +53,7 @@ module.exports = function(options) {
 				strictSSL: false
 			}
 
-			proxied.post( req, function(err, response, body ) {
+			request.post( req, function(err, response, body ) {
 				if ( err ) {
 					callback(err,null);
 				} else {
@@ -71,7 +86,7 @@ module.exports = function(options) {
 				strictSSL: false
 			}
 
-			proxied.post( req, function(err, response, body ) {
+			request.post( req, function(err, response, body ) {
 				if ( err ) {
 					callback(err,null);
 				} else {
@@ -83,12 +98,19 @@ module.exports = function(options) {
 		sendMessage: function ( options, callback ) {
 
 			var data = {
-			    room: options.room,
+			    room: options.room, // the context ( post ) in the wishbone world
+			    /*
+					comment: server = post_id
+					direct message: server = conversation_d
+			    */
 			    language: options.language,
-			    text: options.text,
-			    rule: options.rule,
-			    server: options.server,
-			    player: options.player,
+			    text: options.text, // the message itself
+			    rule: options.rule, // 1 = public message 2 = private
+			    server: options.server, 
+			    /*
+					app: wishbone
+			    */
+			    player: options.player, // wishbone user
 			    player_display_name: options.playerDisplayName,
 			    msg_id: options.msgId
 			}
@@ -107,7 +129,7 @@ module.exports = function(options) {
 				strictSSL: false
 			}
 
-			proxied.post( req, function(err, response, body ) {
+			request.post( req, function(err, response, body ) {
 				if ( err ) {
 					callback(err,null);
 				} else {
@@ -145,7 +167,7 @@ module.exports = function(options) {
 				strictSSL: false
 			}
 
-			proxied.post( req, function(err, response, body ) {
+			request.post( req, function(err, response, body ) {
 				if ( err ) {
 					callback(err,null);
 				} else {

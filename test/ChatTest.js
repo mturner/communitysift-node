@@ -12,17 +12,37 @@ describe('CommunitySift', function() {
 
   	describe('sendMessage()', function () {
 
-  		it('Should get a success sending data to Sift', function (done) {
+  		var userId = new Date().getTime();
+
+  		it('Should not have an issue with the message', function (done) {
 	    	lib.sendMessage({
-	    		room: "test",
+	    		room: "cf", // community feed
 	    		language: "en",
 	    		text: "Fake message",
 	    		rule: 1,
-	    		server: "Gamma",
+	    		server: "1",// post id
 	    		player: new Date().getTime(),
 	    		playerDisplayName: "Vinay",
 	    		msgId: "1"
 	    	}, function(err,res){
+	    		console.log(res);
+	    		assert.equal( res.entries.length, 2, "Two items are found in the string 'fake message'")
+	    		done();
+	    	});
+	    });	
+
+	    it('Should express concern about the user now that they cursed', function (done) {
+	    	lib.sendMessage({
+	    		room: "cf", // community feed
+	    		language: "en",
+	    		text: "Fuck message",
+	    		rule: 1,
+	    		server: "1",// post id
+	    		player: new Date().getTime(),
+	    		playerDisplayName: "Vinay",
+	    		msgId: "1"
+	    	}, function(err,res){
+	    		console.log(res);
 	    		assert.equal( res.entries.length, 2, "Two items are found in the string 'fake message'")
 	    		done();
 	    	});
@@ -78,28 +98,34 @@ describe('CommunitySift', function() {
 
   	describe('checkUsername()', function () {
 
+  		var userId = new Date().getTime();
+
   		it('Should not flag a normal username', function (done) {
+	    	
 	    	lib.checkUsername({
 	    		rule: 1,
-	    		player_id: new Date().getTime(),
+	    		player_id: userId,
 	    		username: "Vinay",
 	    		language: "en"
 	    	}, function(err,res){
 	    		assert.equal(res.response, true, "Was flagged as inappropriate and shouldn't be")
 	    		done();
 	    	});
+
 	    });	
 
-	    it('Should not flag an offensive username', function (done) {
+	    it('When the user changes their username to include cursing it should flag it', function (done) {
+	    	
 	    	lib.checkUsername({
 	    		rule: 1,
-	    		player_id: new Date().getTime(),
+	    		player_id: userId,
 	    		username: "fuckBalls",
 	    		language: "en"
 	    	}, function(err,res){
 	    		assert.equal(res.response, false, "Was not flagged as inappropriate and should have been")
 	    		done();
 	    	});
+
 	    });	
 
 
