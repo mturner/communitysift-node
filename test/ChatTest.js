@@ -25,7 +25,6 @@ describe('CommunitySift', function() {
 	    		playerDisplayName: "Vinay",
 	    		msgId: "1"
 	    	}, function(err,res){
-	    		console.log(res);
 	    		assert.equal( res.entries.length, 2, "Two items are found in the string 'fake message'")
 	    		done();
 	    	});
@@ -42,7 +41,6 @@ describe('CommunitySift', function() {
 	    		playerDisplayName: "Vinay",
 	    		msgId: "1"
 	    	}, function(err,res){
-	    		console.log(res);
 	    		assert.equal( res.entries.length, 2, "Two items are found in the string 'fake message'")
 	    		done();
 	    	});

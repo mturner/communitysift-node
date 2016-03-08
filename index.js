@@ -25,6 +25,32 @@ module.exports = function(options) {
 		QUESTIONABLE: 3,
 		UNKNOWN: 4,
 
+		workflow: function ( flow, options, callback) {
+
+			var url =  opts.protocol + opts.endpoint + "/v1/workflow/call/" + flow;
+			var auth = new Buffer("" + ':' + opts.apiKey).toString('base64');
+			var headers = {
+                Authorization: 'Basic ' + auth,
+                'Content-Type': 'application/json'
+			}
+			var req = {
+				url: url,
+				headers: headers,
+				json: true,
+				body: options,
+				strictSSL: false
+			}
+
+			request.post( req, function(err, response, body ) {
+				if ( err ) {
+					callback(err,null);
+				} else {
+					callback( null, body );
+				}
+			});
+
+
+		},
 
 		filterMessage: function ( options, callback ) {
 
